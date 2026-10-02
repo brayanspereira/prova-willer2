@@ -1,0 +1,125 @@
+-- CREATE TABLE aeronaves (
+-- id SERIAL PRIMARY KEY,
+-- modelo VARCHAR(50) NOT NULL,
+-- codigo_cauda VARCHAR(10) UNiQUE NOT NULL,
+-- capacidade INT NOT NULL CHECK (capacidade > 0)
+-- );
+
+
+-- CREATE TABLE pilotos (
+--     id SERIAL PRIMARY KEY,
+--     nome VARCHAR(100) NOT NULL,
+--     codigo_anac CHAR(6) UNIQUE NOT NULL,
+--     horas_voo INT DEFAULT 0 CHECK (horas_voo >= 0)
+-- );
+
+
+
+-- CREATE TABLE voos(
+-- id serial PRIMARY KEY,
+-- aeronave_id INT NOT NULL,
+-- piloto_id INT NOT NULL,
+-- numero_voos VARCHAR(100) NOT NULL,
+-- origem VARCHAR (100) NOT NULL,
+-- destino VARCHAR (100) NOT NULL,
+-- data_hora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+-- status VARCHAR (100) DEFAULT ('Agendado'),
+
+-- CONSTRAINT fk_voo_aeronave
+--  FOREIGN KEY (aeronave_id)
+--  REFERENCES aeronaves(id),
+
+-- CONSTRAINT fk_voo_piloto
+--  FOREIGN KEY(piloto_id)
+--  REFERENCES pilotos(id),
+
+-- CONSTRAINT check_status
+--  CHECK (status IN ('Agendado', 'Em Voo', 'Concluido', 'Cancelado'))
+
+-- );
+
+
+-- CREATE TABLE passageiros (
+-- id SERIAL PRIMARY KEY,
+-- nome VARCHAR (100) NOT NULL,
+-- cpf VARCHAR (11) UNIQUE NOT NULL,
+-- email VARCHAR (100) UNIQUE NOT NUll
+-- )
+
+-- CREATE TABLE passagens (
+-- id SERIAL PRIMARY KEY,
+-- voo_id INT NOT NULL,
+-- passageiro_id INT NOT NULL,
+-- assento VARCHAR(4) NOT NULL,
+-- classe VARCHAR(50) DEFAULT 'Economica',
+-- valor DECIMAL(10,2) NOT NULL CHECK (valor > 0),
+
+-- CONSTRAINT fk_passagem_voo
+--         FOREIGN KEY (voo_id)
+--         REFERENCES voos(id),
+        
+--     CONSTRAINT fk_passagem_passageiro
+--         FOREIGN KEY (passageiro_id)
+--         REFERENCES passageiros(id),
+        
+--     CONSTRAINT check_classe
+--         CHECK (classe IN ('Economica', 'Executiva'))
+-- )
+
+
+
+
+
+
+-- INSERT INTO aeronaves (modelo, codigo_cauda, capacidade) VALUES
+-- ('Aviao01', 'ABC-123', 180),
+-- ('Aviao02', 'DEF-456', 189),
+-- ('Aviao03', 'GHI-789', 220),
+-- ('Aviao04', 'JKL-321', 242),
+-- ('Aviao05', 'MNO-654', 146);
+
+
+-- INSERT INTO pilotos (nome, codigo_anac, horas_voo) Values
+-- ( 'João', '234', '23'),
+-- ('Pedro', '345', '21'),
+-- ('Kaleb', '432', '13'),
+-- ('Hugo', '346', '12'),
+-- ('Lorenzo', '244','08')
+
+
+-- INSERT INTO passageiros(nome,cpf,email) VALUES
+-- ('Ana','12423455231','ana@gmail.com'),
+-- ('Paulo','23456789012','paulo@gmail.com'),
+-- ('Fernando','342342323','fer@gmail.com'),
+-- ('Sofia','23131232131','sofi@gmail.com'),
+-- ('Gabriel', '56789012345','gabriel@gmail.com');
+
+-- INSERT INTO voos
+-- (aeronave_id, piloto_id, numero_voos, origem, destino, data_hora, status)
+-- VALUES
+-- ('1', '213', 'LA101', 'Florianopolis', 'Sao Paulo', '2026-10-05 08:00:00', 'Agendado'),
+-- ('2', '312', 'LA202', 'Sao Paulo', 'Rio de Janeiro', '2026-10-05 10:30:00', 'Em Voo'),
+-- ('3', '321', 'LA303', 'Curitiba', 'Brasilia', '2026-10-06 14:00:00', 'Concluido'),
+-- ('4', '312', 'LA404', 'Brasilia', 'Salvador', '2026-10-07 18:00:00', 'Cancelado'),
+-- ('5', '131', 'LA505', 'Porto Alegre', 'Florianopolis', '2026-10-08 20:00:00', 'Agendado');
+
+
+
+
+
+
+
+
+-- CREATE VIEW vw_painel_aeroporto AS
+-- SELECT
+--     v.numero_voo,
+--     v.data_hora,
+--     v.origem,
+--     v.destino,
+--     a.modelo,
+--     a.codigo_cauda,
+--     v.status
+-- FROM voos v
+-- INNER JOIN aeronaves a
+--     ON v.aeronave_id = a.id;
+
